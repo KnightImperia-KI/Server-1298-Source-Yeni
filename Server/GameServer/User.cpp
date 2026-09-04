@@ -2789,7 +2789,29 @@ void CUser::AppendExtraNoticeData(Packet & pkt, uint8_t & elementCount)
 		g_pMain->GetServerResource(IDS_NP_REPAY_EVENT, &message, g_pMain->m_byNPEventAmount);
 		AppendNoticeEntry(pkt, elementCount, message.c_str(), "NP Event"); 
 	}
+
+	Packet result2;
+	std::string buffer2 = string_format("Welcome to Project: Knight Online");
+	ChatPacket::Construct(&result2, 0, &buffer2);
+	Send(&result2);
+	Packet result3;
+	std::string buffer4 = string_format("Server time : %02d/%02d/%02d %02d:%02d", g_pMain->m_sMonth, g_pMain->m_sDate, g_pMain->m_sYear, g_pMain->m_sHour, g_pMain->m_sMin);
+	ChatPacket::Construct(&result3, 7, &buffer4);
+	Send(&result3);
+	Packet result;
+	std::string buffer = string_format("Hello " + GetName());
+	ChatPacket::Construct(&result, 7, &buffer);
+	Send(&result);
+
+	if (g_pMain->isWarOpen())
+	{
+		Packet notice;
+		std::string war = string_format("War is in progress.Hurry Up!");
+		ChatPacket::Construct(&notice, 6, &war);
+		Send(&notice);
+	}
 }
+
 
 void CUser::SkillPointChange(Packet & pkt)
 {
